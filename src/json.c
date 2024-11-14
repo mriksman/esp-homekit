@@ -4,6 +4,7 @@
 #include <string.h>
 #include "json.h"
 #include "debug.h"
+#include <inttypes.h>
 
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -221,21 +222,21 @@ void _json_number(json_stream *json, const char *value, size_t len) {
 
 void json_uint8(json_stream *json, uint8_t x) {
     char buffer[4];
-    size_t len = snprintf(buffer, sizeof(buffer), "%u", x);
+    size_t len = snprintf(buffer, sizeof(buffer), "%" PRIu8, x);
 
     _json_number(json, buffer, len);
 }
 
 void json_uint16(json_stream *json, uint16_t x) {
     char buffer[6];
-    size_t len = snprintf(buffer, sizeof(buffer), "%u", x);
+    size_t len = snprintf(buffer, sizeof(buffer), "%" PRIu16, x);
 
     _json_number(json, buffer, len);
 }
 
 void json_uint32(json_stream *json, uint32_t x) {
     char buffer[11];
-    size_t len = snprintf(buffer, sizeof(buffer), "%u", x);
+    size_t len = snprintf(buffer, sizeof(buffer), "%" PRIu32, x);
 
     _json_number(json, buffer, len);
 }
