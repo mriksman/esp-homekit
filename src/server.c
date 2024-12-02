@@ -782,7 +782,7 @@ void write_characteristic_json(json_stream *json, client_context_t *client, cons
         if (v->is_null) {
             // json_string(json, "value"); json_null(json);
         } else if (v->format != ch->format) {
-            ERROR("Characteristic value format is different from characteristic format");
+            ERROR("Characteristic value format: v.format=%d != Characteristic format ch.format=%d", v->format, ch->format);
         } else {
             switch(v->format) {
                 case homekit_format_bool: {
@@ -3689,8 +3689,12 @@ static void homekit_client_process(client_context_t *context) {
 
             payload = context->server->data+2;
             payload_size = decrypted_size;
-            if (payload_size)
-                print_binary("Decrypted data", payload, payload_size);
+            if (payload_size) {
+                //print_binary("Decrypted data", payload, payload_size);
+                char *escaped_payload = text_to_string(payload, payload_size);  // Use text_to_string to convert the payload
+                CLIENT_DEBUG(context, "Decrypted data (%d bytes): %s", payload_size, escaped_payload);
+                free(escaped_payload);  
+            }              
         } else {
             data_available = 0;
         }
