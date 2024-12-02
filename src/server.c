@@ -3671,7 +3671,7 @@ static void homekit_client_process(client_context_t *context) {
         byte *payload = (byte *)context->server->data;
         size_t payload_size = (size_t)data_len;
 
-        size_t decrypted_size = sizeof(context->server->data) - 2 - 18;
+        size_t decrypted_size = sizeof(context->server->data) - 2 - 16;
 
         if (context->encrypted) {
             CLIENT_DEBUG(context, "Decrypting data");
