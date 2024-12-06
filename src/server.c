@@ -3703,7 +3703,7 @@ static void homekit_client_process(client_context_t *context) {
             &context->server->parser, &homekit_http_parser_settings,
             (char *)payload, payload_size
         );
-    } while (data_available && !context->server->request_completed);
+    } while (!context->server->request_completed);
 
     current_client_context = NULL;
     context->server->parser.data = NULL;
