@@ -3570,7 +3570,7 @@ int homekit_server_on_message_begin(http_parser *parser) {
 int homekit_server_on_message_complete(http_parser *parser) {
     client_context_t *context = parser->data;
 
-    if (!context->encrypted) {
+//    if (!context->encrypted) {
         switch(context->server->endpoint) {
             case HOMEKIT_ENDPOINT_PAIR_SETUP: {
                 homekit_server_on_pair_setup(context, (const byte *)context->server->body, context->server->body_length);
@@ -3580,14 +3580,14 @@ int homekit_server_on_message_complete(http_parser *parser) {
                 homekit_server_on_pair_verify(context, (const byte *)context->server->body, context->server->body_length);
                 break;
             }
-            default: {
-                DEBUG("Unknown endpoint");
-                send_404_response(context);
-                break;
-            }
-        }
-    } else {
-        switch(context->server->endpoint) {
+//            default: {
+//                DEBUG("Unknown endpoint");
+//                send_404_response(context);
+//                break;
+//            }
+//        }
+//    } else {
+//        switch(context->server->endpoint) {
             case HOMEKIT_ENDPOINT_IDENTIFY: {
                 homekit_server_on_identify(context);
                 break;
@@ -3617,7 +3617,7 @@ int homekit_server_on_message_complete(http_parser *parser) {
                 send_404_response(context);
                 break;
             }
-        }
+//        }
     }
 
     if (context->server->body) {
